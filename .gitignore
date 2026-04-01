@@ -7,6 +7,12 @@ archive/
 .claude/settings.local.json
 .claude/sessions/
 
+# Rust local artifacts
+rust/.claude/
+rust/.omc/
+rust/.sandbox-home/
+rust/.clawd-*
+
 # Environment & secrets
 .env
 .env.local
@@ -35,6 +41,6 @@ dist/
 build/
 *.egg-info/
 
-# Rust
+# Rust build
 rust/target/
 rust/Cargo.lock
