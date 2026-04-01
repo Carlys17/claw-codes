@@ -1,23 +1,24 @@
 # Claw Code - Qwen Edition
 
 [![GitHub](https://img.shields.io/github/stars/Carlys17/claw-codes)](https://github.com/Carlys17/claw-codes)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Security](https://img.shields.io/badge/security-policy-green.svg)](SECURITY.md)
 
-**AI Coding Assistant yang bisa menggunakan Claude atau Qwen (Alibaba Cloud)** 🚀
+**AI Coding Assistant that supports both Claude and Qwen (Alibaba Cloud)** 🚀
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Key Features
 
-| Fitur | Deskripsi |
-|-------|-----------|
-| 🤖 **Multi-LLM** | Support Claude (Anthropic) dan Qwen (Alibaba Cloud) |
-| 🛠️ **207 Commands** | Perintah siap pakai untuk berbagai task |
-| 🔧 **184 Tools** | File ops, search, git, MCP, dan lebih banyak lagi |
-| 🐍 **Python** | Mudah dimodifikasi dan extend |
-| 🦀 **Rust (WIP)** | Implementasi Rust untuk performa lebih tinggi |
-| 🔌 **MCP Support** | Integrasikan dengan MCP servers |
+| Feature | Description |
+|---------|-------------|
+| 🤖 **Multi-LLM** | Support Claude (Anthropic) and Qwen (Alibaba Cloud) |
+| 🛠️ **207 Commands** | Ready-to-use commands for various tasks |
+| 🔧 **184 Tools** | File ops, search, git, MCP, and more |
+| 🐍 **Python** | Easy to modify and extend |
+| 🦀 **Rust (WIP)** | Rust implementation for higher performance |
+| 🔌 **MCP Support** | Integrate with MCP servers |
 
 ---
 
@@ -30,9 +31,9 @@ git clone https://github.com/Carlys17/claw-codes.git
 cd claw-codes
 ```
 
-### 2. Pilih LLM Provider
+### 2. Choose LLM Provider
 
-#### Pakai Qwen (Alibaba Cloud / DashScope)
+#### Using Qwen (Alibaba Cloud / DashScope)
 
 ```bash
 # Set API key
@@ -40,18 +41,18 @@ export QWEN_API_KEY="your-dashscope-api-key"
 export QWEN_MODEL="qwen-max"  # optional: qwen-turbo, qwen-plus, qwen-max
 ```
 
-Dapatkan API Key di: [Alibaba Cloud DashScope](https://dashscope.console.aliyun.com/)
+Get API Key at: [Alibaba Cloud DashScope](https://dashscope.console.aliyun.com/)
 
-#### Pakai Claude (Anthropic)
+#### Using Claude (Anthropic)
 
 ```bash
 export ANTHROPIC_API_KEY="your-anthropic-api-key"
 ```
 
-### 3. Jalankan
+### 3. Run
 
 ```bash
-# Lihat ringkasan project
+# View project summary
 python -m src.main summary
 
 # List available commands
@@ -60,26 +61,26 @@ python -m src.main commands --limit 20
 # List available tools
 python -m src.main tools --limit 20
 
-# Jalankan turn loop dengan AI
-python -m src.main turn-loop "Jelaskan struktur project ini" --max-turns 3
+# Run turn loop with AI
+python -m src.main turn-loop "Explain this project structure" --max-turns 3
 ```
 
 ---
 
-## 📖 Dokumentasi
+## 📖 Documentation
 
 ### Command Line Usage
 
 ```bash
-# Cek provider aktif
+# Check active provider
 python -m src.main summary
 
-# Pilih provider secara eksplisit
+# Choose provider explicitly
 python -m src.main turn-loop "Hello" --provider qwen
 python -m src.main turn-loop "Hello" --provider claude
 
-# Bootstrap session AI
-python -m src.main bootstrap "Buatkan REST API sederhana"
+# Bootstrap AI session
+python -m src.main bootstrap "Create a simple REST API"
 
 # Run tests
 python -m unittest discover -s tests -v
@@ -87,17 +88,18 @@ python -m unittest discover -s tests -v
 
 ### Environment Variables
 
-| Variable | Deskripsi | Default |
-|----------|-----------|---------|
-| `QWEN_API_KEY` | API key untuk Qwen/DashScope | - |
-| `QWEN_BASE_URL` | Qwen API endpoint | `https://dashscope.aliyuncs.com/api/v1` |
-| `QWEN_MODEL` | Model Qwen yang digunakan | `qwen-max` |
-| `ANTHROPIC_API_KEY` | API key untuk Claude | - |
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `QWEN_API_KEY` | API key for Qwen/DashScope | - |
+| `QWEN_BASE_URL` | Qwen API endpoint | Auto-detect |
+| `QWEN_MODEL` | Qwen model to use | `qwen-max` |
+| `QWEN_API_MODE` | API mode: `dashscope`, `openai`, `anthropic` | Auto-detect |
+| `ANTHROPIC_API_KEY` | API key for Claude | - |
 | `ANTHROPIC_BASE_URL` | Claude API endpoint | `https://api.anthropic.com` |
 
 ---
 
-## 📦 Struktur Project
+## 📦 Project Structure
 
 ```
 claw-codes/
@@ -117,7 +119,9 @@ claw-codes/
 │   │   └── rusty-claude-cli/    # CLI application
 │   └── ...
 ├── tests/                        # Python tests
-├── QWEN_SETUP.md                 # Panduan lengkap setup Qwen
+├── QWEN_SETUP.md                 # Complete Qwen setup guide
+├── SECURITY.md                   # Security policy
+├── LICENSE                       # MIT License
 └── README.md
 ```
 
@@ -148,22 +152,22 @@ claw-codes/
 
 ### 1. Code Generation
 ```bash
-python -m src.main bootstrap "Buatkan Flask REST API untuk todo app"
+python -m src.main bootstrap "Create a Flask REST API for todo app"
 ```
 
 ### 2. Code Review
 ```bash
-python -m src.main turn-loop "Review file src/main.py dan suggest improvements"
+python -m src.main turn-loop "Review src/main.py and suggest improvements"
 ```
 
 ### 3. Debugging
 ```bash
-python -m src.main turn-loop "Kenapa test ini fail? Jelaskan dan beri fix"
+python -m src.main turn-loop "Why is this test failing? Explain and provide fix"
 ```
 
 ### 4. Refactoring
 ```bash
-python -m src.main bootstrap "Refactor fungsi ini jadi lebih clean"
+python -m src.main bootstrap "Refactor this function to be cleaner"
 ```
 
 ---
@@ -179,13 +183,44 @@ python -m unittest discover -s tests -v
 ```bash
 python -c "
 from src.qwen_client import QwenClient, QwenRequest, QwenMessage
-client = QwenClient.from_env()
-request = QwenRequest(messages=[QwenMessage(role='user', content='Hello')])
-response = client.send_message(request)
-print(f'Model: {response.model}')
-print(f'Response: {response.content}')
+
+try:
+    client = QwenClient.from_env()
+    request = QwenRequest(messages=[QwenMessage(role='user', content='Hello')])
+    response = client.send_message(request)
+    print(f'Connected! Model: {response.model}')
+    print(f'Response: {response.content}')
+except Exception as e:
+    print(f'Error: {e}')
 "
 ```
+
+---
+
+## 🔐 Security
+
+### ⚠️ Important: Never Commit API Keys!
+
+```bash
+# ✅ DO: Use environment variables
+export QWEN_API_KEY="your-key-here"
+
+# ❌ DON'T: Hardcode in source files
+api_key = "sk-xxxxx"  # NEVER DO THIS
+```
+
+### Sensitive Files to Exclude
+
+The following should **NEVER** be committed:
+
+| File/Pattern | Reason |
+|--------------|--------|
+| `.env` | Contains secrets |
+| `*.key`, `*.pem` | Private keys |
+| `credentials.json` | Authentication data |
+| `.claude/settings.local.json` | Local settings |
+
+See [SECURITY.md](SECURITY.md) for full security policy.
 
 ---
 
@@ -213,13 +248,21 @@ Contributions welcome! Please:
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open Pull Request
 
+### Before Submitting PR
+
+- [ ] No API keys or secrets in code
+- [ ] Code follows project style
+- [ ] Tests pass (`python -m unittest discover -s tests -v`)
+- [ ] Documentation updated
+
 ---
 
 ## 📬 Contact
 
 - **GitHub**: [@Carlys17](https://github.com/Carlys17/claw-codes)
 - **Issues**: [GitHub Issues](https://github.com/Carlys17/claw-codes/issues)
+- **Security**: [Security Advisories](../../security/advisories)
 
 ---
 
-**Star ⭐ repo ini kalau kamu merasa project ini membantu!**
+**Star ⭐ this repo if you find it helpful!**

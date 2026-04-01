@@ -2,6 +2,39 @@ __pycache__/
 archive/
 .omx/
 .clawd-agents/
+
 # Claude Code local artifacts
 .claude/settings.local.json
 .claude/sessions/
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+config.local.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Rust
+rust/target/
+rust/Cargo.lock
