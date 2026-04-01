@@ -1,12 +1,12 @@
 # Qwen / Alibaba Cloud Setup Guide
 
-Panduan ini menjelaskan cara mengkonfigurasi **claw-code** untuk menggunakan **Qwen** (via Alibaba Cloud DashScope) sebagai alternatif Claude API.
+Panduan ini menjelaskan cara mengkonfigurasi **claw-code** untuk menggunakan **Qwen** (via Alibaba Cloud DashScope atau Coding Plan) sebagai alternatif Claude API.
 
 ---
 
 ## 📋 Prerequisites
 
-1. **DashScope API Key** dari Alibaba Cloud
+1. **API Key** dari Alibaba Cloud (DashScope atau Coding Plan)
 2. **Python 3.8+** untuk Python client
 3. **Internet connection** untuk akses API
 
@@ -14,7 +14,23 @@ Panduan ini menjelaskan cara mengkonfigurasi **claw-code** untuk menggunakan **Q
 
 ## 🔑 Cara Mendapatkan API Key
 
-### Opsi 1: DashScope (Recommended)
+### Opsi 1: Alibaba Cloud Coding Plan (Recommended for Coding)
+
+Coding Plan adalah API khusus untuk coding assistant dengan endpoint yang kompatibel dengan OpenAI dan Anthropic.
+
+1. Kunjungi [Alibaba Cloud Coding Plan](https://modelstudio.console.alibabacloud.com/ap-southeast-1?tab=coding-plan)
+2. Login atau daftar akun Alibaba Cloud
+3. Aktifkan service Coding Plan
+4. Buat API Key di dashboard
+
+**Coding Plan Endpoints:**
+
+| Mode | Endpoint | Protocol |
+|------|----------|----------|
+| OpenAI-compatible | `https://coding-intl.dashscope.aliyuncs.com/v1` | OpenAI API format |
+| Anthropic-compatible | `https://coding-intl.dashscope.aliyuncs.com/apps/anthropic` | Anthropic API format |
+
+### Opsi 2: DashScope (Standard Qwen API)
 
 1. Kunjungi [Alibaba Cloud DashScope](https://dashscope.console.aliyun.com/)
 2. Login atau daftar akun Alibaba Cloud
@@ -22,45 +38,56 @@ Panduan ini menjelaskan cara mengkonfigurasi **claw-code** untuk menggunakan **Q
 4. Klik **Create New API Key**
 5. Copy dan simpan API key Anda
 
-### Opsi 2: Alibaba Cloud International
-
-1. Kunjungi [Alibaba Cloud Console](https://www.alibabacloud.com/)
-2. Navigate ke **Model Studio** → **DashScope**
-3. Aktifkan service DashScope
-4. Buat API Key di dashboard
-
 ---
 
 ## ⚙️ Konfigurasi Environment
 
-### Linux / macOS
+### Mode Coding Plan - OpenAI Compatible
 
 ```bash
-# Set API key (tambahkan ke ~/.bashrc atau ~/.zshrc untuk permanent)
+# Linux / macOS
 export QWEN_API_KEY="your-api-key-here"
+export QWEN_API_MODE="openai"
+export QWEN_BASE_URL="https://coding-intl.dashscope.aliyuncs.com/v1"
+export QWEN_MODEL="qwen-coder-plus"  # atau model coding lainnya
+```
 
-# Optional: Set custom base URL (default: https://dashscope.aliyuncs.com/api/v1)
+### Mode Coding Plan - Anthropic Compatible
+
+```bash
+# Linux / macOS
+export QWEN_API_KEY="your-api-key-here"
+export QWEN_API_MODE="anthropic"
+export QWEN_BASE_URL="https://coding-intl.dashscope.aliyuncs.com/apps/anthropic"
+export QWEN_MODEL="qwen-coder-plus"
+```
+
+### Mode DashScope (Standard)
+
+```bash
+# Linux / macOS
+export QWEN_API_KEY="your-api-key-here"
+export QWEN_API_MODE="dashscope"
 export QWEN_BASE_URL="https://dashscope.aliyuncs.com/api/v1"
-
-# Optional: Set model (default: qwen-max)
 export QWEN_MODEL="qwen-max"
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-# Set API key (permanent via Environment Variables GUI atau tambahkan ke profile)
 $env:QWEN_API_KEY="your-api-key-here"
-$env:QWEN_BASE_URL="https://dashscope.aliyuncs.com/api/v1"
-$env:QWEN_MODEL="qwen-max"
+$env:QWEN_API_MODE="openai"
+$env:QWEN_BASE_URL="https://coding-intl.dashscope.aliyuncs.com/v1"
+$env:QWEN_MODEL="qwen-coder-plus"
 ```
 
 ### Windows (Command Prompt)
 
 ```cmd
 set QWEN_API_KEY=your-api-key-here
-set QWEN_BASE_URL=https://dashscope.aliyuncs.com/api/v1
-set QWEN_MODEL=qwen-max
+set QWEN_API_MODE=openai
+set QWEN_BASE_URL=https://coding-intl.dashscope.aliyuncs.com/v1
+set QWEN_MODEL=qwen-coder-plus
 ```
 
 ---
@@ -89,15 +116,31 @@ python -m src.main turn-loop "Hello" --provider claude
 
 ---
 
-## 📦 Available Qwen Models
+## 📦 Available Models (Coding Plan)
 
-| Model | Deskripsi | Use Case |
-|-------|-----------|----------|
-| `qwen-turbo` | Fastest, cheapest | Quick tasks, prototyping |
-| `qwen-plus` | Balanced | General purpose |
-| `qwen-max` | Most capable | Complex reasoning, coding |
-| `qwen-max-longcontext` | 200K+ context | Large documents |
-| `qwen2.5-72b-instruct` | Open weights | Self-hosted option |
+Alibaba Cloud Coding Plan offers the latest and most powerful programming models. With its powerful Coding Agent, you can switch between models on demand.
+
+**Your current plan supports these models:**
+
+| Brand | Model | Capabilities |
+|-------|-------|--------------|
+| **Qwen** | `qwen3.5-plus` | Text Generation, Deep Thinking, Visual Understanding |
+| | `qwen3-max-2026-01-23` | Text Generation, Deep Thinking |
+| | `qwen3-coder-next` | Text Generation |
+| | `qwen3-coder-plus` | Text Generation |
+| **Zhipu** | `glm-5` | Text Generation, Deep Thinking |
+| | `glm-4.7` | Text Generation, Deep Thinking |
+| **Kimi** | `kimi-k2.5` | Text Generation, Deep Thinking, Visual Understanding |
+| **MiniMax** | `MiniMax-M2.5` | Text Generation, Deep Thinking |
+
+### Recommended Models for Coding
+
+| Model | Best For |
+|-------|----------|
+| `qwen3-coder-plus` | Complex coding tasks, multi-file refactoring |
+| `qwen3-coder-next` | Fast code completion, quick fixes |
+| `qwen3.5-plus` | General purpose with visual understanding |
+| `glm-5` | Alternative for complex reasoning tasks |
 
 ---
 
